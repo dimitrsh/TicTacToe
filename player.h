@@ -7,7 +7,6 @@
 class Player{
 // Abstract, you see.
 protected:
-    bool alive;         // to distinguishe human from robot.
     Field * field;      // can't exist out of game.
     short index;        // X or O?
     static short count; // static to watch over all players.
@@ -29,7 +28,7 @@ short Player::count = 0;
 
 class Human : public Player{
 public:
-    Human(Field & f) : Player(f) {alive = true;}
+    Human(Field & f) : Player(f) {}
     void move(){                  // keyboard input. Now it's only console version.
         std :: cout << "Insert x, y : ";
         short x, y;
@@ -47,9 +46,7 @@ class Robot : public Player {
 protected:
     short max_depth;
 public:
-    Robot(Field & f, short max_depth_) : Player(f), max_depth(max_depth_) {
-        alive = false;
-    }
+    Robot(Field & f, short max_depth_) : Player(f), max_depth(max_depth_) {}
     Robot(Field & f) : Robot(f, 8) {}
 
     // maxy and miny functions are quite the same. They differs only in the side they are looking from.
