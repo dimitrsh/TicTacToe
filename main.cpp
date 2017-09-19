@@ -1,6 +1,5 @@
 #include <iostream>
 #include <random>
-#include <ctime>
 #include "tictac.h"
 
 int main()

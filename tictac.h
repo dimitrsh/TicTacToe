@@ -1,6 +1,6 @@
 #ifndef TICTAC_H
 #define TICTAC_H
-
+#include <random>
 #include "field.h"
 #include "player.h"
 
@@ -11,9 +11,9 @@ using namespace std;
 void MainLoop(Field * f, Player * p1, Player * p2){
     srand(time(0));
     short stat = 0;
-    p1->set_index(1);
+    p1->set_index(1); // players got they numbers automatically, but we can renumerate them.
     p2->set_index(2);
-    p1->first_move();
+    p1->first_move(); // make sense only at AI first step.
     cout << *f;
     while (stat == 0){
         p2->move();

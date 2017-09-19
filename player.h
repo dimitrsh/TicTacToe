@@ -29,7 +29,7 @@ short Player::count = 0;
 class Human : public Player{
 public:
     Human(Field & f) : Player(f) {}
-    void move(){                  // keyboard input. Now it's only console version.
+    void move(){                                                 // keyboard input. Now it's only console version.
         std :: cout << "Insert x, y : ";
         short x, y;
         std :: cin >> x >> y;
@@ -60,7 +60,7 @@ public:
         for(int i = 0; i < 9; i++){
             if((*field)(i) == field->EMPTY) {
                 (*field)(i) = cur_player;                        // put current player sign in the first empty cell
-                short cur_stat = miny(field->O, cur_depth + 1);  // try to find the better position for opponent
+                short cur_stat = miny(field->O, cur_depth + 1);  // try to find the better position for opponent, if this cell was used.
                 (*field)(i) = field->EMPTY;                      // return field to previous state,
                 if (cur_stat > res_stat) res_stat = cur_stat;    // find the worst state for opponent.
                 if (res_stat == field->P1_WIN ) return res_stat; // use first better position. All others will not be better than this.
@@ -88,6 +88,7 @@ public:
 
     void move(){
         int mind = -1;  // index of next position.
+        // next two conditions are just the first steps of 'miny' or 'maxy' functions, depends on what player it is.
         if(index == field->X){
             short res_stat = -10;
             for(int i = 0; i < 9; i++){
@@ -118,6 +119,7 @@ public:
                 }
             }
         }
+        // now 'mind' contains the index of cell, that AI should use.
         (*field)(mind) = index;
     }
 
