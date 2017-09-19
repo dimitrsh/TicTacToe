@@ -5,7 +5,7 @@ all: tictactoe
 	make clean
 
 tictactoe: main.o
-	$(CC) $(CCFLAGS) main.o -o tictactoe
+	$(CC) main.o -o tictactoe
 
 main.o: main.cpp
 	$(CC) $(CCFLAGS) -c main.cpp
