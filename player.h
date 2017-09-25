@@ -53,14 +53,14 @@ public:
     // maxy is needed to find the better place for X
     // miny is needed to find the better  cell for O
 
-    short maxy(short cur_player, short cur_depth){
+    short maxy(short cur_depth){
         short status = field->status();
         if (status != field->EMPTY || cur_depth == max_depth) return status;
         short res_stat = -10;                                    // there may be any other negative number that less than -4.
         for(int i = 0; i < 9; i++){
             if((*field)(i) == field->EMPTY) {
-                (*field)(i) = cur_player;                        // put current player sign in the first empty cell
-                short cur_stat = miny(field->O, cur_depth + 1);  // try to find the better position for opponent, if this cell was used.
+                (*field)(i) = field->X;                        // put current player sign in the first empty cell
+                short cur_stat = miny(cur_depth + 1);  // try to find the better position for opponent, if this cell was used.
                 (*field)(i) = field->EMPTY;                      // return field to previous state,
                 if (cur_stat > res_stat) res_stat = cur_stat;    // find the worst state for opponent.
                 if (res_stat == field->P1_WIN ) return res_stat; // use first better position. All others will not be better than this.
@@ -70,14 +70,14 @@ public:
         return res_stat;
     }
 
-    short miny(short cur_player, short cur_depth){
+    short miny(short cur_depth){
         short status = field->status();
         if (status != field->EMPTY || cur_depth == max_depth) return status;
         short res_stat = 10;                                     // there may be any other positive number that greater than 4.
         for(int i = 0; i < 9; i++){
             if((*field)(i) == field->EMPTY) {
-                (*field)(i) = cur_player;
-                short cur_stat = maxy(field->X, cur_depth + 1);
+                (*field)(i) = field->O;
+                short cur_stat = maxy(cur_depth + 1);
                 (*field)(i) = field->EMPTY;
                 if (cur_stat < res_stat) res_stat = cur_stat;
                 if (res_stat == field->P2_WIN ) return res_stat;
@@ -93,8 +93,8 @@ public:
             short res_stat = -10;
             for(int i = 0; i < 9; i++){
                 if((*field)(i) == field->EMPTY){
-                    (*field)(i) = index;
-                    short cur_stat = miny(field->O, 1);
+                    (*field)(i) = field->X;
+                    short cur_stat = miny(1);
                     (*field)(i) = field->EMPTY;
                     if (cur_stat > res_stat){
                         res_stat = cur_stat;
@@ -108,8 +108,8 @@ public:
             short res_stat = 10;
             for(int i = 0; i < 9; i++){
                 if((*field)(i) == field->EMPTY){
-                    (*field)(i) = index;
-                    short cur_stat = maxy(field->X, 1);
+                    (*field)(i) = field->O;
+                    short cur_stat = maxy(1);
                     (*field)(i) = field->EMPTY;
                     if (cur_stat < res_stat){
                         res_stat = cur_stat;

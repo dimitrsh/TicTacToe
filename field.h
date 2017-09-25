@@ -37,6 +37,9 @@ public:
     short & operator() (int lind) {
         return vals[lind];
     }
+    void clear(){
+        for (int i = 0; i < 9; i++) vals[i] = EMPTY;
+    }
 
     friend std :: ostream & operator << (std :: ostream & os, const Field & f);
 };
